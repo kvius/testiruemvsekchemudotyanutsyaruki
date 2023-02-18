@@ -22,6 +22,8 @@ if __name__ == '__main__':
 
 
     def callback(*args):
+        pass
+        print("новый тип ввода")
     root = tkinter.Tk()  # создаем корневой объект - окно
     # root.overrideredirect(1)
     # root.lift()
