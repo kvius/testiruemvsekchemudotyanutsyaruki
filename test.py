@@ -15,6 +15,12 @@ if __name__ == '__main__':
             case "Bits to Message":
                 vvod_txt.delete(0, END)
                 code = scripts.decrypt_msg(x, x2)
+            case "Message to Bits(16base key)":
+                vvod_txt.delete(0, END)
+                code = scripts.encrypt_msg(x, x2)
+            case "Bits to Message(16base key)":
+                vvod_txt.delete(0, END)
+                code = scripts.decrypt_msg(x, x2)
             case "Select an Option":
                 print(1)
 
