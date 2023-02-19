@@ -23,22 +23,56 @@ def text_from_bits(bits, encoding='ascii', errors='surrogatepass'):
     print("Мое знач : " + value)
     return value
 
-
-def encrypt_msg(txt, key):
+"""
+num = int('11111', 2)
+num_of_bits = 8
+d = hex(num)[2:]
+print(d)ХЕКС В БИТЫ
+print(bin(int(d, 16))[2:].zfill(num_of_bits))#БИТЫ В ХЕКС
+"""
+def encrypt_msg(txt, key,base=2):
+    if base == 2:
+        value=encrypt_msg_base2(txt, key)
+    if base == 16:
+        #num_of_bits = 4*((len(bits_for_base16)+3)//4)#вдруг понадобится
+        value = encrypt_msg_base16(txt, key)
+        print(value)
+    return value
+def encrypt_msg_base16(txt, key):
+    key = bin(int(key, 16))[2:]
+    print("base16to2: " + key)
+    bits_for_base16 = encrypt_msg_base2(txt, key)
+    value = hex(int(bits_for_base16, 2))[2:]
+    return value
+def encrypt_msg_base2(txt, key):
     bit = text_to_bits(txt)
     value = getvalues(bit, key)
     print("Мой шифр : " + value)
     print(len(value))
     return value
 
-
-def decrypt_msg(bit, key):
+def decrypt_msg_base16(bit, key):
+    key = bin(int(key, 16))[2:]
+    bit = bin(int(bit, 16))[2:]
+    print("base16to2: " + key)
+    value=decrypt_msg_base2(bit, key)
+    return value
+def decrypt_msg_base2(bit, key):
     print("Мой Шифр : " + bit)
     value = getvalues(bit, key)
-    return (text_from_bits(value))
+    value=text_from_bits(value)
+    return value
+def decrypt_msg(bit, key, base=2):
+    if base == 2:
+        value=decrypt_msg_base2(bit, key)
+    if base == 16:
+        value=decrypt_msg_base16(bit,key)
+    return value
+
 
 
 def getvalues(bit, key):
+
     key = getkey(key, len(bit))
     print("Мой ключ : " + key)
     y = xor(bit, key)
@@ -50,8 +84,8 @@ def xor(x, y):
     return (int(x, 2) ^ int(y, 2))
 
 
-key = "1010101001"
-v = encrypt_msg("d", key)
+key = "f5c"
+v = encrypt_msg("dasd", key, base=16)
 print(v)
-v2 = decrypt_msg(v, key)
+v2 = decrypt_msg(v, key,base=16)
 print(v2)
