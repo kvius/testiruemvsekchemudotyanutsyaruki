@@ -83,9 +83,10 @@ def getvalues(bit, key):
 def xor(x, y):
     return (int(x, 2) ^ int(y, 2))
 
-
+znach="dasd"
 key = "f5c"
-v = encrypt_msg("dasd", key, base=16)
-print(v)
+print("Введённое значение : "+znach)
+print("Введённое ключ : "+key)
+v = encrypt_msg(znach, key, base=16)
 v2 = decrypt_msg(v, key,base=16)
 print(v2)
