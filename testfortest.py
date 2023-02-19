@@ -1,4 +1,4 @@
-num = int('011111sss01', 2)
+num = int('01111101', 2)
 num_of_bits = 8
 d = hex(num)[2:]
 print(d)
