@@ -17,10 +17,10 @@ if __name__ == '__main__':
                 code = scripts.decrypt_msg(x, x2)
             case "Message to Bits(16base key)":
                 vvod_txt.delete(0, END)
-                code = scripts.encrypt_msg(x, x2)
+                code = scripts.encrypt_msg(x, x2, base=16)
             case "Bits to Message(16base key)":
                 vvod_txt.delete(0, END)
-                code = scripts.decrypt_msg(x, x2)
+                code = scripts.decrypt_msg(x, x2, base=16)
             case "Select an Option":
                 print(1)
 
@@ -28,15 +28,16 @@ if __name__ == '__main__':
 
 
     def callback(*args):
-        print(args)
-        print("новый тип ввода")
+        pass
+        #print(args)
+        #print("новый тип ввода")
     root = tkinter.Tk()  # создаем корневой объект - окно
     # root.overrideredirect(1)
     # root.lift()
     # root.attributes('-topmost',True)
     # root.after_idle(root.attributes,'-topmost',True)
     root.title("нож")  # устанавливаем заголовок окна
-    w, h = 600, 600
+    w, h = 700, 600
     # root.geometry(f"{w}x{h}+{(root.winfo_screenwidth()-w)//2}+{(root.winfo_screenheight()-h)//2}")
     root.geometry(f"{w}x{h}")
     # root.attributes("-fullscreen", True)
@@ -63,7 +64,7 @@ if __name__ == '__main__':
     btn.pack()
     btn.place(x=0, y=60)
 
-    options_list = ["Message to Bits", "Bits to Message", "Option 3", "Option 4"]
+    options_list = ["Message to Bits", "Bits to Message", "Message to Bits(16base key)", "Bits to Message(16base key)"]
     coding_type = tkinter.StringVar(root)
     coding_type.set("Select an Option")
     coding_type.trace("w", callback)
