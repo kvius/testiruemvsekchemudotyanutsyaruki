@@ -72,7 +72,7 @@ if __name__ == '__main__':
     question_menu.pack()
     question_menu.place(x=450, y=60)
 
-    vvod_txt = ttk.Entry()
+    vvod_txt = ttk.Entry(width=80,exportselection=True)
     vvod_txt.pack()
     vvod_txt.place(x=0, y=90)
 
