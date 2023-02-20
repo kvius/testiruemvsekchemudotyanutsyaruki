@@ -9,27 +9,20 @@ def getkey(txt, length):
     return return_txt
 
 
-def text_to_bits(text, encoding='ascii', errors='surrogatepass'):
+def text_to_bits(text, encoding='UTF-8', errors='surrogatepass'):
     bits = bin(int.from_bytes(text.encode(encoding, errors), 'big'))[2:]
     bit = bits.zfill(8 * ((len(bits) + 7) // 8))
     print("Мое знач : " + bit)
     return bit
 
 
-def text_from_bits(bits, encoding='ascii', errors='surrogatepass'):
+def text_from_bits(bits, encoding='UTF-8', errors='surrogatepass'):
     n = int(bits, 2)
     print("Мое знач : " + bits)
     value = n.to_bytes((n.bit_length() + 7) // 8, 'big').decode(encoding, errors) or '\0'
     print("Мое знач : " + value)
     return value
 
-"""
-num = int('11111', 2)
-num_of_bits = 8
-d = hex(num)[2:]
-print(d)ХЕКС В БИТЫ
-print(bin(int(d, 16))[2:].zfill(num_of_bits))#БИТЫ В ХЕКС
-"""
 def encrypt_msg(txt, key,base=2):
     if base == 2:
         value=encrypt_msg_base2(txt, key)
@@ -51,9 +44,18 @@ def encrypt_msg_base2(txt, key):
     print(len(value))
     return value
 
+
+def decrypt_msg(bit, key, base=2):
+    if base == 2:
+        value=decrypt_msg_base2(bit, key)
+    if base == 16:
+        value=decrypt_msg_base16(bit,key)
+    return value
 def decrypt_msg_base16(bit, key):
     key = bin(int(key, 16))[2:]
-    bit = bin(int(bit, 16))[2:]
+    bit=bin(int(bit, 16))[2:]
+    num_of_bits = 4 * ((len(bit) + 3) // 4)  # вдруг понадобится и вправду
+    bit=bit.zfill(num_of_bits)
     print("base16to2: " + key)
     value=decrypt_msg_base2(bit, key)
     return value
@@ -62,13 +64,6 @@ def decrypt_msg_base2(bit, key):
     value = getvalues(bit, key)
     value=text_from_bits(value)
     return value
-def decrypt_msg(bit, key, base=2):
-    if base == 2:
-        value=decrypt_msg_base2(bit, key)
-    if base == 16:
-        value=decrypt_msg_base16(bit,key)
-    return value
-
 
 
 def getvalues(bit, key):
@@ -82,11 +77,12 @@ def getvalues(bit, key):
 
 def xor(x, y):
     return (int(x, 2) ^ int(y, 2))
+if __name__ == '__main__':
+    znach = "sdfфывфs"
+    key = "1011"
+    print("Введённое значение : " + znach)
+    print("Введённое ключ : " + key)
+    v = encrypt_msg(znach, key)
+    v2 = decrypt_msg(v, key)
+    print(v2)
 
-znach="dasd"
-key = "f5c"
-print("Введённое значение : "+znach)
-print("Введённое ключ : "+key)
-v = encrypt_msg(znach, key, base=16)
-v2 = decrypt_msg(v, key,base=16)
-print(v2)
