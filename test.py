@@ -2,6 +2,15 @@ import tkinter
 from tkinter import *
 from tkinter import ttk
 import scripts
+import regular as reg
+import alertmsgs as alert
+from tkinter import messagebox
+
+# This code is to hide the main tkinter window
+
+
+# Message Box
+
 
 if __name__ == '__main__':
     def makesmth():
@@ -10,22 +19,34 @@ if __name__ == '__main__':
         x2 = entry1.get()
         match way_of_code:
             case "Message to Bits":
-                vvod_txt.delete(0, END)
-                code = scripts.encrypt_msg(x, x2)
+                if reg.checkregular(x, 2, "text") and reg.checkregular(x2,2,"numpass"):
+                    vvod_txt.delete(0, END)
+                    code = scripts.encrypt_msg(x, x2)
+                else:
+                    messagebox.showinfo("Title", "В первое поле только буквы или цифры во второе только единицы или нолики")
             case "Bits to Message":
-                vvod_txt.delete(0, END)
-                code = scripts.decrypt_msg(x, x2)
+                if reg.checkregular(x, 2, "num") and reg.checkregular(x2, 2, "numpass"):
+                    vvod_txt.delete(0, END)
+                    code = scripts.decrypt_msg(x, x2)
+                else:
+                    messagebox.showinfo("Title", "В первое и во второе поле только единицы или нолики \n в первое только по 8 значений ")
             case "Message to Bits(16base key)":
-                vvod_txt.delete(0, END)
-                code = scripts.encrypt_msg(x, x2, base=16)
+                if reg.checkregular(x, 2, "text") and reg.checkregular(x2, 16, "num"):
+                    vvod_txt.delete(0, END)
+                    code = scripts.encrypt_msg(x, x2, base=16)
+                else:
+                    messagebox.showinfo("Title", "В первое ваше сообщение из букв и цифр во второе поле только числа из 16ти ричной системы счисления ")
             case "Bits to Message(16base key)":
-                vvod_txt.delete(0, END)
-                code = scripts.decrypt_msg(x, x2, base=16)
+                if reg.checkregular(x, 16, "num") and reg.checkregular(x2, 16, "num"):
+                    vvod_txt.delete(0, END)
+                    code = scripts.decrypt_msg(x, x2, base=16)
+                else:
+                    messagebox.showinfo("Title","В первое и во второе поле только числа из 16ти ричной системы счисления ")
             case "Select an Option":
+                messagebox.showinfo("Title", "Выбери что делать")
                 print(1)
-
-        vvod_txt.insert(0, code)
-
+        if 'code' in locals():
+            vvod_txt.insert(0,code)
 
     def callback(*args):
         pass
